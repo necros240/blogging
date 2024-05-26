@@ -1,0 +1,36 @@
+
+.comments-section {
+    margin-top: 10px;
+  }
+  
+  .comments-section form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .comments-section input {
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .comments-section button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .comments-section button:hover {
+    background-color: #5a6268;
+  }
+  
+  .comments-list .comment {
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
+    margin-top: 5px;
+  }
+  
