@@ -4,6 +4,7 @@ import CreatePost from './CreatePost';
 import Posts from './Posts';
 import Search from './Search';
 import './Dashboard.css'
+import Chatbot from './Chatbot';
 
 const Dashboard = () => {
   const [isSignedIn, setIsSignedIn] = React.useState(false);
@@ -103,6 +104,7 @@ const Dashboard = () => {
             )}
           </div>
         )}
+        <Chatbot />
         <Posts Posts={filteredPosts} posts={posts} onAddComment2={addComment2} onToggleLike2={toggleLike2}/>
     </div>
   );
