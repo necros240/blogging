@@ -51,7 +51,7 @@ const Dashboard = () => {
     setFilteredPosts(newPosts);
   };
 
-  const addComment2 = (postId, comment) => {
+  const addComment = (postId, comment) => {
     const updatedPosts = posts.map((post) =>
       post.id === postId ? { ...post, comments: [...post.comments, comment] } : post
     );
@@ -59,7 +59,7 @@ const Dashboard = () => {
     setFilteredPosts(updatedPosts);
   };
 
-  const toggleLike2 = (postId) => {
+  const toggleLike = (postId) => {
     const updatedPosts = posts.map((post) =>
       post.id === postId
         ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
@@ -79,7 +79,19 @@ const Dashboard = () => {
         post.tags.some((tag) => tag.toLowerCase().includes(lowercasedQuery))
     );
     setFilteredPosts(searchResults);
-  };
+  
+
+    const nonMatchingPosts = posts.filter(
+      (post) =>
+        !post.title.toLowerCase().includes(lowercasedQuery) &&
+        !post.content.toLowerCase().includes(lowercasedQuery) &&
+        !post.categories.some((category) => category.toLowerCase().includes(lowercasedQuery)) &&
+        !post.tags.some((tag) => tag.toLowerCase().includes(lowercasedQuery))
+      );
+
+      const reorderedPosts = [...searchResults, ...nonMatchingPosts];
+      setFilteredPosts(reorderedPosts);
+    };
 
   return (
     
@@ -92,20 +104,26 @@ const Dashboard = () => {
           <div>
             <nav className="navbar">
               <button onClick={() => setShowDashboard(!showDashboard)}>
-                {showDashboard ? 'Hide' : 'Show'} Dashboard
+                {showDashboard ? 'Hide' : 'View'} Dashboard
               </button>
               <button onClick={handleSignOut}>Sign Out</button>
             </nav>
             {showDashboard && (
               <div className='dashboard-content'>
                 <Search onSearch={handleSearch}/>
-                <CreatePost onAddPost={addPost} />
+                <CreatePost 
+                  onAddPost={addPost} />
               </div>
             )}
           </div>
         )}
+      <Posts
+        posts={filteredPosts}
+        onAddComment={addComment}
+        onToggleLike={toggleLike}
+      />
         <Chatbot />
-        <Posts Posts={filteredPosts} posts={posts} onAddComment2={addComment2} onToggleLike2={toggleLike2}/>
+        <Posts Posts={filteredPosts} posts={posts} onAddComment={addComment} onToggleLike={toggleLike}/>
     </div>
   );
 };
