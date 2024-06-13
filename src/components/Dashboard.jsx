@@ -4,6 +4,7 @@ import CreatePost from './CreatePost';
 import Posts from './Posts';
 import Search from './Search';
 import './Dashboard.css'
+import Chatbot from './Chatbot';
 
 const Dashboard = () => {
   const [isSignedIn, setIsSignedIn] = React.useState(false);
@@ -40,25 +41,25 @@ const Dashboard = () => {
 
   const addPost = async(post) => {
 
-    const response = await fetch('https://source.unsplash.com/random');
-    const imageUrl = response.url;
+    /* const response = await fetch('https://source.unsplash.com/random');
+    const imageUrl = response.url; */
 
 
-    const newPost = { ...post, id: Date.now(), comments: [], likes: 0, liked: false, imageUrl };
+    const newPost = { ...post, id: Date.now(), comments: [], likes: 0, liked: false,  };//imageUrl
     const newPosts = [...posts, newPost];
     setPosts(newPosts);
     setFilteredPosts(newPosts);
   };
 
-  const addComment2 = (postId, comment) => {
+  const addComment = (postId, comment) => {
     const updatedPosts = posts.map((post) =>
       post.id === postId ? { ...post, comments: [...post.comments, comment] } : post
     );
     setPosts(updatedPosts);
     setFilteredPosts(updatedPosts);
-  };
+  } 
 
-  const toggleLike2 = (postId) => {
+  const toggleLike = (postId) => {
     const updatedPosts = posts.map((post) =>
       post.id === postId
         ? { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 }
@@ -78,7 +79,19 @@ const Dashboard = () => {
         post.tags.some((tag) => tag.toLowerCase().includes(lowercasedQuery))
     );
     setFilteredPosts(searchResults);
-  };
+  
+
+    const nonMatchingPosts = posts.filter(
+      (post) =>
+        !post.title.toLowerCase().includes(lowercasedQuery) &&
+        !post.content.toLowerCase().includes(lowercasedQuery) &&
+        !post.categories.some((category) => category.toLowerCase().includes(lowercasedQuery)) &&
+        !post.tags.some((tag) => tag.toLowerCase().includes(lowercasedQuery))
+      );
+
+      const reorderedPosts = [...searchResults, ...nonMatchingPosts];
+      setFilteredPosts(reorderedPosts);
+    }; 
 
   return (
     
@@ -91,7 +104,7 @@ const Dashboard = () => {
           <div>
             <nav className="navbar">
               <button onClick={() => setShowDashboard(!showDashboard)}>
-                {showDashboard ? 'Hide' : 'Show'} Dashboard
+                {showDashboard ? 'Hide' : 'View'} Dashboard
               </button>
               <button onClick={handleSignOut}>Sign Out</button>
               <link to="https://thefinancebot.streamlit.app/">Chatbot</link>
@@ -99,12 +112,19 @@ const Dashboard = () => {
             {showDashboard && (
               <div className='dashboard-content'>
                 <Search onSearch={handleSearch}/>
-                <CreatePost onAddPost={addPost} />
+                <CreatePost 
+                onAddPost={addPost} />
               </div>
             )}
           </div>
         )}
-        <Posts Posts={filteredPosts} posts={posts} onAddComment2={addComment2} onToggleLike2={toggleLike2}/>
+      <Posts
+        posts={filteredPosts}
+        onAddComment={addComment}
+        onToggleLike={toggleLike}
+      />
+        <Chatbot />
+        <Posts Posts={filteredPosts} posts={posts} onAddComment={addComment} onToggleLike={toggleLike}/>
     </div>
   );
 };

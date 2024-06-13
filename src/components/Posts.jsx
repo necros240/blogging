@@ -7,6 +7,7 @@ import './Posts.css'
 
 
 const Posts = ({ posts, onAddComment, onToggleLike }) => {
+  
   return (
     <div  className='posts-container'>
       {posts.map((post) => (
@@ -17,7 +18,7 @@ const Posts = ({ posts, onAddComment, onToggleLike }) => {
           <p>Categories: {post.categories.join(', ')}</p>
           <p>Tags: {post.tags.join(', ')}</p>
           <button onClick={() => onToggleLike(post.id)}>
-            {post.liked ? 'Unlike' : 'Like'} ({post.likes})
+            {post.liked ? 'unlike' : 'like'} ({post.likes})
           </button>
           <div className='comments-container'>
             <Comments postId={post.id} comments={post.comments} onAddComment={onAddComment} />

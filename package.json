@@ -1,6 +1,6 @@
 {
   "name": "blog-application",
-  "homepage": "https://necros240.github.io/blog.git",
+  "homepage": "https://necros240.github.io/blogging.git",
   "version": "0.0.0",
   "private":false,
   "type": "module",

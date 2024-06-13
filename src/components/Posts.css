@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
   .post-card button {

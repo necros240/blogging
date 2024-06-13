@@ -13,7 +13,8 @@
   
   .search-form button {
     padding: 10px;
-    background-color: #007bff;
+    margin-left: 2px;
+    background-color: rebeccapurple;
     color: white;
     border: none;
     border-radius: 0 4px 4px 0;
