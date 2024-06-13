@@ -94,6 +94,7 @@ const Dashboard = () => {
                 {showDashboard ? 'Hide' : 'Show'} Dashboard
               </button>
               <button onClick={handleSignOut}>Sign Out</button>
+              <link to="https://thefinancebot.streamlit.app/">Chatbot</link>
             </nav>
             {showDashboard && (
               <div className='dashboard-content'>
