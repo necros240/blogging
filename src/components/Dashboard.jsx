@@ -41,11 +41,11 @@ const Dashboard = () => {
 
   const addPost = async(post) => {
 
-    const response = await fetch('https://source.unsplash.com/random');
-    const imageUrl = response.url;
+    /* const response = await fetch('https://source.unsplash.com/random');
+    const imageUrl = response.url; */
 
 
-    const newPost = { ...post, id: Date.now(), comments: [], likes: 0, liked: false, imageUrl };
+    const newPost = { ...post, id: Date.now(), comments: [], likes: 0, liked: false,  };//imageUrl
     const newPosts = [...posts, newPost];
     setPosts(newPosts);
     setFilteredPosts(newPosts);
@@ -57,7 +57,7 @@ const Dashboard = () => {
     );
     setPosts(updatedPosts);
     setFilteredPosts(updatedPosts);
-  };
+  } 
 
   const toggleLike = (postId) => {
     const updatedPosts = posts.map((post) =>
@@ -91,7 +91,7 @@ const Dashboard = () => {
 
       const reorderedPosts = [...searchResults, ...nonMatchingPosts];
       setFilteredPosts(reorderedPosts);
-    };
+    }; 
 
   return (
     
@@ -112,7 +112,7 @@ const Dashboard = () => {
               <div className='dashboard-content'>
                 <Search onSearch={handleSearch}/>
                 <CreatePost 
-                  onAddPost={addPost} />
+                onAddPost={addPost} />
               </div>
             )}
           </div>
